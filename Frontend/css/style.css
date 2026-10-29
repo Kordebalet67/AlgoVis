@@ -1,0 +1,388 @@
+/* --- CSS VARIABLES & RESET --- */
+:root {
+    --bg-sidebar: #111827;      
+    --bg-main: #0f1218;         
+    --text-main: #f3f4f6;       
+    --text-muted: #9ca3af;      
+    
+    --color-bar: #3b82f6;       
+    --color-compare: #f59e0b;   
+    --color-swap: #ef4444;      
+    --color-sorted: #22c55e;    
+    
+    --border-color: #374151;
+    --input-bg: #1f2937;
+    --thumb-color: #60a5fa;     
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    display: flex;
+    height: 100vh;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    overflow: hidden;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+    width: 320px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    box-sizing: border-box;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.logo span { color: var(--thumb-color); }
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.control-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.control-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.value-display {
+    font-size: 0.9rem;
+    color: var(--thumb-color);
+    font-weight: 600;
+    font-family: monospace;
+}
+
+select {
+    width: 100%;
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: white;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+select:focus { border-color: var(--thumb-color); }
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    flex-grow: 1;
+    width: 100%;
+    height: 6px;
+    background: var(--input-bg);
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid var(--border-color);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--thumb-color);
+    cursor: pointer;
+    transition: transform 0.1s ease, background-color 0.1s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border: none;
+    border-radius: 50%;
+    background: var(--thumb-color);
+    cursor: pointer;
+    transition: transform 0.1s ease, background-color 0.1s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover,
+input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.15);
+    background: #93c5fd;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+    padding: 5px 0;
+}
+
+.checkbox-container input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: var(--input-bg);
+    margin: 0;
+    font: inherit;
+    color: var(--thumb-color);
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.checkbox-container input[type="checkbox"]::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    background-color: var(--bg-main);
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.checkbox-container input[type="checkbox"]:checked {
+    background-color: var(--thumb-color);
+    border-color: var(--thumb-color);
+}
+
+.checkbox-container input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+.checkbox-container:hover input[type="checkbox"] {
+    border-color: var(--thumb-color);
+}
+
+/* ИСПРАВЛЕННЫЙ И СИНХРОНИЗИРОВАННЫЙ СТИЛЬ ДЛЯ КНОПОК САЙДБАРА */
+.sidebar-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    box-sizing: border-box; /* Гарантирует правильный расчет ширины при внутренних отступах */
+    display: block;        /* Выравнивает поведение label и button */
+    font-family: inherit;
+}
+.sidebar-btn:hover { opacity: 0.9; }
+
+/* --- MAIN CONTENT & VISUALIZATION --- */
+.main-content {
+    flex-grow: 1;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.stats-bar, .stats-bar2 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+.stats-bar2 {
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.stat-item {
+    background: var(--bg-sidebar);
+    border: 1px solid var(--border-color);
+    padding: 12px 16px;
+    border-radius: 8px;
+}
+.stat-item h4 {
+    margin: 0 0 4px 0;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+.stat-item span {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+}
+
+#vis-container2 {
+    flex-grow: 1;
+    background: #151a24;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+#vis-container2.single-mode {
+    display: block;
+}
+#vis-container2.split-mode {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    background: transparent;
+}
+
+.vis-view {
+    width: 100%;
+    height: 100%;
+    background: #151a24;
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;         
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    flex: 1;        
+    min-width: 0px;  
+    max-width: 70px;    
+}
+.bar {
+    width: 100%;
+    background-color: var(--color-bar);
+    border-radius: 4px 4px 0 0;
+    transition: height 0.2s ease, background-color 0.1s;
+    min-height: 2px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.3);
+}
+
+.bar-label {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-family: monospace;
+    text-align: center;
+}
+
+.footer-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+.control-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    background: var(--bg-sidebar);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    color: white;
+}
+.control-btn:hover { background: var(--border-color); }
+.control-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.info-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+}
+
+.info-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--input-bg);
+    color: var(--thumb-color);
+    font-size: 0.7rem;
+    border: 1px solid var(--border-color);
+    transition: 0.2s;
+}
+
+.info-tooltip:hover .info-icon {
+    background: var(--thumb-color);
+    color: white;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 240px;
+    background-color: var(--input-bg);
+    color: var(--text-main);
+    text-align: left;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 100;
+    bottom: 125%; 
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    border: 1px solid var(--border-color);
+    font-size: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    text-transform: none; /* Отменяем uppercase от родителя */
+    letter-spacing: normal;
+    font-weight: normal;
+}
+
+/* Треугольник под подсказкой */
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--border-color) transparent transparent transparent;
+}
+
+.info-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}

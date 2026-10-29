@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoVis - Advanced</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" type="image/ico" href="./img/icon.ico">
+</head>
+    <body>
+
+        <aside class="sidebar">
+            <div class="logo">
+                <span>&lt;/&gt;</span> AlgoVis
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">Алгоритм</div>
+                <select id="algo-select">
+                </select>
+            </div>
+            
+            <div id="settings-view-2" class="control-group" style="display: none; flex-direction: column;">
+                <div class="control-label">Алгоритм 2 (Снизу)</div>
+                <select id="algo-select-2"></select>
+                
+                <div id="custom-file-box" style="display: none; flex-direction: column; gap: 8px;">
+                    <div class="control-label" style="font-size: 0.75rem; display: flex; align-items: center; justify-content: space-between;">
+                        Загрузить скрипт (.py)
+                        <div class="info-tooltip">
+                            <span class="info-icon">❓</span>
+                            <div class="tooltip-text">
+                                <strong>Требования к коду:</strong>
+                                <ol style="padding-left: 15px; margin-top: 5px; margin-bottom: 0;">
+                                    <li>Создайте одну функцию, принимающую аргумент <code>arr</code>.</li>
+                                    <li>Меняйте элементы массива напрямую: <code>arr[i], arr[j] = arr[j], arr[i]</code>.</li>
+                                    <li>Импорты модулей (import) запрещены сервером.</li>
+                                    <li>Код выполняется с ограничением по времени (2 сек).</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <label for="algo-file-input" class="sidebar-btn" id="file-label" style="display: block; text-align: center; cursor: pointer; background: #10b981;">
+                        Выбрать файл...
+                    </label>
+
+                    <input type="file" id="algo-file-input" accept=".py" style="display: none;">
+                </div>
+                
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">Данные</div>
+                <select id="fill-mode">
+                    <option value="random">Случайные числа</option>
+                    <option value="manual">Ввод вручную</option>
+                </select>
+
+                <div id="manual-input-box" style="display: none; margin-top: 10px;">
+                    <input type="text" id="manual-input" placeholder="Например: 5, 2, 9, 1" style="width: 100%; padding: 8px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 6px; color: white;">
+                </div>
+            </div>
+
+            <div class="control-group" id="size-control-box">
+                <div class="control-header">
+                    <div class="control-label">Размер массива</div>
+                    <span class="value-display" id="size-val">10</span>
+                </div>
+                <div class="slider-container">
+                    <input type="range" id="array-size" min="3" max="50" value="10">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="control-header">
+                    <div class="control-label">Скорость анимации</div>
+                </div>
+                <div class="slider-container">
+                    <input type="range" id="speed" min="10" max="1000" value="600">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="step-mode">
+                    <span>Пошаговый режим</span>
+                </label>
+            </div>
+
+            <div style="margin-top: auto; padding-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+                <button class="sidebar-btn" id="generate-btn" style="background: #3b82f6;">Сгенерировать</button>
+                <button class="sidebar-btn" id="toggle-split" style="background: #3b82f6;">Сравнить два алгоритма</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <h4>Сложность</h4>
+                    <span id="complexity-display">O(N²)</span>
+                </div>
+                <div class="stat-item">
+                    <h4>Сравнений</h4>
+                    <span>0</span>
+                </div>
+                <div class="stat-item">
+                    <h4>Перестановок</h4>
+                    <span>0</span>
+                </div>
+                <div class="stat-item">
+                    <h4>Статус</h4>
+                    <span>Ожидание</span>
+                </div>
+            </div>
+            
+            <div id="vis-container2" class="single-mode">
+               
+            </div>
+
+            <div class="stats-bar2" id="panel-2" style="display: none;">
+                <div class="stat-item">
+                    <h4>Сложность</h4>
+                    <span id="complexity-display-2">O(N²)</span>
+                </div>
+                <div class="stat-item">
+                    <h4>Сравнений</h4>
+                    <span id="comparisons-display">0</span>
+                </div>
+                <div class="stat-item">
+                    <h4>Перестановок</h4>
+                    <span id="swaps-display">0</span>
+                </div>
+                <div class="stat-item">
+                    <h4>Статус</h4>
+                    <span id="status-display">Ожидание</span>
+                </div>
+            </div>
+
+            <div class="footer-controls">
+                <button class="control-btn" id="next-step-btn" title="Сделать шаг" disabled>⏭</button>
+                <button class="control-btn" id="start-btn" title="Запуск/Пауза" style="background: white; color: rgb(0, 0, 0); border:none;">▶</button>
+            </div>
+        </main>
+        <script src="./js/js.js"></script>
+    </body>
+</html>

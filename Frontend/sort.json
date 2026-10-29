@@ -1,0 +1,42 @@
+{
+  "bubble_sort": {
+    "name": "Пузырьковая сортировка",
+    "complexity": "O(N²)"
+  },
+  "insertion_sort": {
+    "name": "Сортировка вставками",
+    "complexity": "O(N²)"
+  },
+  "selection_sort": {
+    "name": "Сортировка выбором",
+    "complexity": "O(N²)"
+  },
+  "merge_sort": {
+    "name": "Сортировка слиянием",
+    "complexity": "O(N log N)"
+  },
+  "shaker_sort": {
+    "name": "Шейкерной сортировки",
+    "complexity": "O(N²)"
+  },
+  "timsort": {
+    "name": "Сортировка Timsort",
+    "complexity": "O(N²)"
+  },
+  "comb_sort": {
+    "name": "Сортировка расчёской",
+    "complexity": "O(N²)"
+  },
+  "heap_sort": {
+    "name": "Пирамидальная сортировка",
+    "complexity": "O(N log N)"
+  },
+  "quick_sort": {
+    "name": "Быстрая сортировка",
+    "complexity": "O(N²)"
+  },
+  "stalin_sort": {
+    "name": "Сталинская сортировка",
+    "complexity": "O(N)"
+  }
+}
