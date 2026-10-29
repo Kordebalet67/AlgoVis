@@ -125,5 +125,12 @@ def run_standard_sort(req: StandardReq):
     # Возвращаем сгенерированные кадры анимации напрямую в формате JSON
     return tracked.get_result(req.arr)
 
+
+from fastapi.staticfiles import StaticFiles
+
+app.mount("/", StaticFiles(directory="Frontend", html=True), name="Frontend")
+
+
+
 '''python -m uvicorn main:app --reload'''
 '''Live Server'''
